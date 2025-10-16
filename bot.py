@@ -1,15 +1,15 @@
 import os
 import datetime
 import jdatetime
-from hijri_converter import Hijri, Gregorian
+from hijri_converter import Hijri
 import telegram
+import asyncio
 
 def get_dates():
     today_gregorian = datetime.datetime.now()
     today_jalali = jdatetime.datetime.now()
     
-    # روش جدید برای تبدیل تاریخ هجری قمری
-    hijri_date = Hijri.today()  # استفاده از today() به جای fromgregorian
+    hijri_date = Hijri.today()
     
     return {
         'gregorian': today_gregorian.strftime("%Y/%m/%d"),
@@ -65,7 +65,7 @@ def create_message():
 """
     return message
 
-def send_to_telegram():
+async def send_to_telegram():
     bot_token = os.environ.get('TELEGRAM_BOT_TOKEN')
     chat_id = os.environ.get('TELEGRAM_CHAT_ID')
     
@@ -76,12 +76,15 @@ def send_to_telegram():
     try:
         bot = telegram.Bot(token=bot_token)
         message = create_message()
-        bot.send_message(chat_id=chat_id, text=message)
+        await bot.send_message(chat_id=chat_id, text=message)
         print("پیام با موفقیت ارسال شد!")
         return True
     except Exception as e:
         print(f"Error: {e}")
         return False
 
+def main():
+    asyncio.run(send_to_telegram())
+
 if __name__ == "__main__":
-    send_to_telegram()
+    main()
