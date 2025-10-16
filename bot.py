@@ -8,16 +8,13 @@ def get_dates():
     today_gregorian = datetime.datetime.now()
     today_jalali = jdatetime.datetime.now()
     
-    hijri = Hijri.fromgregorian(
-        today_gregorian.year, 
-        today_gregorian.month, 
-        today_gregorian.day
-    )
+    # روش جدید برای تبدیل تاریخ هجری قمری
+    hijri_date = Hijri.today()  # استفاده از today() به جای fromgregorian
     
     return {
         'gregorian': today_gregorian.strftime("%Y/%m/%d"),
         'jalali': today_jalali.strftime("%Y/%m/%d"),
-        'hijri': f"{hijri.year}/{hijri.month:02d}/{hijri.day:02d}"
+        'hijri': f"{hijri_date.year}/{hijri_date.month:02d}/{hijri_date.day:02d}"
     }
 
 def get_day_message(day_number):
