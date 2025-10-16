@@ -24,6 +24,6 @@ jobs:
  
     - name: Send Telegram Message 
       env: 
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }} 
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }} 
+        TELEGRAM_BOT_TOKEN: ${{8476673665:AAGa1hO6Zamb4QxhflldzRQ_A4-N5PDjAdU}} 
+        TELEGRAM_CHAT_ID: ${{-1003113299882}} 
       run: python bot.py 
