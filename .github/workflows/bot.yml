@@ -1,29 +1,28 @@
-name: Send Daily Message 
- 
-on: 
-  schedule: 
-    # هر روز ساعت ۵ صبح به وقت ایران (۱:۳۰ UTC) 
-    - cron: '30 1 * * *' 
-  workflow_dispatch:  # اجازه اجرای دستی 
- 
-jobs: 
-  send-message: 
-    runs-on: ubuntu-latest 
- 
-    steps: 
-    - name: Checkout code 
-      uses: actions/checkout@v4 
- 
-    - name: Set up Python 
-      uses: actions/setup-python@v4 
-      with: 
-        python-version: '3.10' 
- 
-    - name: Install dependencies 
-      run: pip install -r requirements.txt 
- 
-    - name: Send Telegram Message 
-      env: 
-        TELEGRAM_BOT_TOKEN: ${{8476673665:AAGa1hO6Zamb4QxhflldzRQ_A4-N5PDjAdU}} 
-        TELEGRAM_CHAT_ID: ${{-1003113299882}} 
-      run: python bot.py 
+name: Send Daily Message
+
+on:
+  schedule:
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+jobs:
+  send-message:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+      
+    - name: Send Telegram Message
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: python bot.py
